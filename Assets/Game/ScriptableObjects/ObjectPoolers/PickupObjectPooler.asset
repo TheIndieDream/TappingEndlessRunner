@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f30eae233791d949b46c0233d4407bd, type: 3}
+  m_Name: PickupObjectPooler
+  m_EditorClassIdentifier: 
+  objectsToPool:
+  - {fileID: 6462329661682511074, guid: fb23194bd07e23c40b04feb2b0df0769, type: 3}
+  - {fileID: 5675928916957052697, guid: 162c6f30ac3484c49b430c61fedc7b1c, type: 3}
+  - {fileID: 5593049301317739618, guid: 91f0ac45e88ee9a4fbc622729690fc2b, type: 3}
+  - {fileID: 6295058823872317147, guid: 10962263457a53b479058dc62654c797, type: 3}
+  initialPoolSize: 3

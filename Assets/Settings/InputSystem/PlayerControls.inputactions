@@ -1,0 +1,71 @@
+{
+    "name": "PlayerControls",
+    "maps": [
+        {
+            "name": "Gameplay",
+            "id": "926ac7fc-5392-49c1-a56e-391bf7f66b47",
+            "actions": [
+                {
+                    "name": "Keyboard",
+                    "type": "Button",
+                    "id": "df3e8ba5-6534-4bbb-8485-585601b556cc",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "TouchPress",
+                    "type": "Button",
+                    "id": "784cd4e4-f391-4f8a-91ca-f47b92e6717a",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "GamePad",
+                    "type": "Button",
+                    "id": "1b4c4236-1276-42ca-8051-6da0ff2e9558",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "464d4063-1d62-4142-926f-6cb1938d3cb4",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Keyboard",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "a374cf11-d8b5-4239-a3e2-e3c1eec3cd9d",
+                    "path": "<Touchscreen>/primaryTouch/press",
+                    "interactions": "Press(behavior=2)",
+                    "processors": "",
+                    "groups": "",
+                    "action": "TouchPress",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "7cb71162-6353-493b-9814-959250dc3a54",
+                    "path": "<Gamepad>/buttonSouth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "GamePad",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}
