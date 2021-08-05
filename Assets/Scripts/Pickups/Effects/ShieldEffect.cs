@@ -11,8 +11,8 @@ public class ShieldEffect : PickupEffect
     [Tooltip("How long should the player be immune to damage for?")]
     public float time;
 
-    public override void Grant(Player player)
+    public override void Grant(EffectHandler effectHandler)
     {
-        player.BecomeShielded(time);
+        effectHandler.ActivateShield(time);
     }
 }

@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1001 &709975851822608389
+--- !u!1001 &6191732700007469387
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -64,24 +64,9 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2717708128632950339, guid: 91df0a2ed1590c648a2b02080f31c4a0,
         type: 3}
-      propertyPath: m_FlipX
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2717708128632950339, guid: 91df0a2ed1590c648a2b02080f31c4a0,
-        type: 3}
-      propertyPath: m_Size.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2717708128632950339, guid: 91df0a2ed1590c648a2b02080f31c4a0,
-        type: 3}
-      propertyPath: m_Size.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2717708128632950339, guid: 91df0a2ed1590c648a2b02080f31c4a0,
-        type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: c95fc7911735a274ea9d03b0e98fe209,
+      objectReference: {fileID: 21300000, guid: 30b90b61e5a195a44aa78ffaf3150873,
         type: 3}
     - target: {fileID: 2717708128632950339, guid: 91df0a2ed1590c648a2b02080f31c4a0,
         type: 3}
@@ -92,29 +77,29 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 42ae141f0325be148927112240d3a2a7, type: 2}
+      objectReference: {fileID: 2100000, guid: 73e09db55f7c628428dee0ae085cfe4e, type: 2}
     - target: {fileID: 2888327199820160816, guid: 91df0a2ed1590c648a2b02080f31c4a0,
         type: 3}
       propertyPath: color
       value: 
-      objectReference: {fileID: 11400000, guid: 5ffee61bb2f74e04f95a94c04e426f6d,
+      objectReference: {fileID: 11400000, guid: ee405bc5fdb4bb74fb73f2f771975e22,
         type: 2}
     - target: {fileID: 2888327199820160816, guid: 91df0a2ed1590c648a2b02080f31c4a0,
         type: 3}
       propertyPath: effect
       value: 
-      objectReference: {fileID: 11400000, guid: ac37a3228dbb993468cbee1c0a803205,
+      objectReference: {fileID: 11400000, guid: d25ccce784720f2468ce26f43b1590cc,
         type: 2}
     - target: {fileID: 2888327199820160816, guid: 91df0a2ed1590c648a2b02080f31c4a0,
         type: 3}
       propertyPath: effectGained
       value: 
-      objectReference: {fileID: 11400000, guid: 440d4b101b299ac418ea49baa80c2982,
+      objectReference: {fileID: 11400000, guid: a486ab96a1c52434da60e64303756611,
         type: 2}
     - target: {fileID: 4919294128966571111, guid: 91df0a2ed1590c648a2b02080f31c4a0,
         type: 3}
       propertyPath: m_Name
-      value: SlowDownPickup
+      value: BonusPickup
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 91df0a2ed1590c648a2b02080f31c4a0, type: 3}

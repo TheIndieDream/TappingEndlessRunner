@@ -11,8 +11,8 @@ public class SpeedEffect : PickupEffect
     [Tooltip("How much to change the game speed by?")]
     public float gameSpeedDelta;
 
-    public override void Grant(Player player)
+    public override void Grant(EffectHandler effectHandler)
     {
-        player.ChangeGameSpeed(gameSpeedDelta);
+        effectHandler.ChangeGameSpeed(gameSpeedDelta);
     }
 }

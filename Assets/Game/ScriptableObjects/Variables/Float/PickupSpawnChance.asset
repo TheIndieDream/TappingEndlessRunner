@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a09775dae88adf4590f5830648d952a, type: 3}
   m_Name: PickupSpawnChance
   m_EditorClassIdentifier: 
-  Value: 0.9
+  Value: 1

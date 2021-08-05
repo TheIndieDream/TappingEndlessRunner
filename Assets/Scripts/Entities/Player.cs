@@ -1,4 +1,3 @@
-using System.Collections;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
@@ -9,14 +8,12 @@ public class Player : MonoBehaviour
     /// </summary>
     public bool Input { get; set; }
 
+    [SerializeField] private EffectHandler effectHandler;
+
     [Header("Movement")]
 
     [Tooltip("Force at which the player will float upward.")]
     [SerializeField] private float upwardForce;
-
-    [Tooltip("The speed at which the game is moving, and thus the apparent" +
-        "speed of the player.")]
-    [SerializeField] private FloatVariable gameSpeed;
 
     [Header("Control")]
 
@@ -26,13 +23,10 @@ public class Player : MonoBehaviour
     [Header("Game Events")]
 
     [Tooltip("GameEvent to signal the player has lost a health point.")]
-    [SerializeField] private GameEvent playerDamagedEvent;
-
-    [Tooltip("GameEvent to signal the player has gained a health point.")]
-    [SerializeField] private GameEvent playerHealedEvent;
+    [SerializeField] private GameEvent damaged;
 
     [Tooltip("GameEvent to signal the player has lost all its health.")]
-    [SerializeField] private GameEvent playerDiedEvent;
+    [SerializeField] private GameEvent died;
 
     [Header("Color")]
 
@@ -46,11 +40,6 @@ public class Player : MonoBehaviour
     /// Rigidbody2D component used for character movement.
     /// </summary>
     private Rigidbody2D rb2d;
-
-    /// <summary>
-    /// Determines if the player can take damage and die.
-    /// </summary>
-    private bool isShielded = false;
 
     private void Awake()
     {
@@ -70,9 +59,9 @@ public class Player : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (!isShielded)
+        if (!effectHandler.Shield.IsActive)
         {
-            playerDiedEvent.Raise();
+            died.Raise();
         }
     }
 
@@ -80,52 +69,16 @@ public class Player : MonoBehaviour
     {
         if (collision.CompareTag("Obstacle"))
         {
-            if (!isShielded)
+            if (!effectHandler.Shield.IsActive)
             {
-                playerDamagedEvent.Raise();
+                damaged.Raise();
             }
         }
         else if (collision.CompareTag("Pickup"))
         {
-            GameObject pickupObject = collision.gameObject;
-            pickupObject.GetComponent<Pickup>().Effect.Grant(this);
-            pickupObject.SetActive(false);
-        }
-    }
-
-    /// <summary>
-    /// Makes the player invulnerable. Then, starts a coroutine to end the 
-    /// invulnerability for after the passed time.
-    /// </summary>
-    /// <param name="time">Amount of time the effect will last.</param>
-    public void BecomeShielded(float time)
-    {
-        isShielded = true;
-        StopAllCoroutines();
-        StartCoroutine(LoseShield(time));
-    }
-
-    /// <summary>
-    /// Raises the playerHealedEvent.
-    /// </summary>
-    /// <param name="amount">Number of times to raise the event.</param>
-    public void Heal(int amount)
-    {
-        for(int i = 0; i < amount; i++)
-        {
-            playerHealedEvent.Raise();
-        }
-    }
-
-    /// <summary>
-    /// Changes the speed at which objects move towards the player.
-    /// </summary>
-    /// <param name="amount">Amount by which to change the game speed.</param>
-    public void ChangeGameSpeed(float amount)
-    {
-        if(gameSpeed.Value + amount > 0)
-        {
-            gameSpeed.Value += amount;
+            Pickup pickup = collision.gameObject.GetComponent<Pickup>();
+            pickup.Effect.Grant(effectHandler);
+            pickup.OnPickUp();
         }
     }
 
@@ -150,17 +103,6 @@ public class Player : MonoBehaviour
         {
             commandStream.Dequeue().Execute(this);
         }
-    }
-
-    /// <summary>
-    /// Routine to make the player vulnerable after a specified amount of time.
-    /// </summary>
-    /// <param name="time">Time after which the player becomes 
-    /// vulnerable.</param>
-    private IEnumerator LoseShield(float time)
-    {
-        yield return new WaitForSeconds(time);
-        isShielded = false;
     }
 
     /// <summary>

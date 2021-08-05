@@ -9,7 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cf8f092f938464e46b4c2cd8762283ec, type: 3}
-  m_Name: PillarSpawnTimeRange
+  m_Script: {fileID: 11500000, guid: a2309702f791349439b9ea17f3d36965, type: 3}
+  m_Name: Bonus_1pt
   m_EditorClassIdentifier: 
-  Value: {x: 4, y: 6}
+  number: 1

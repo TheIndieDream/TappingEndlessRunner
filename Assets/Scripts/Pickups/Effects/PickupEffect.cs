@@ -9,6 +9,7 @@ public abstract class PickupEffect : ScriptableObject
     /// <summary>
     /// Bestows the pickup effect onto the player.
     /// </summary>
-    /// <param name="player">Player to whom the effect is granted.</param>
-    public abstract void Grant(Player player);
+    /// <param name="effectHandler">Handler object for the given 
+    /// effect.</param>
+    public abstract void Grant(EffectHandler effectHandler);
 }

@@ -10,8 +10,8 @@ public class HealEffect : PickupEffect
     [Tooltip("How many health points should be restored to the player?")]
     public int number;
 
-    public override void Grant(Player player)
+    public override void Grant(EffectHandler effectHandler)
     {
-        player.Heal(number);
+        effectHandler.Heal(number);
     }
 }

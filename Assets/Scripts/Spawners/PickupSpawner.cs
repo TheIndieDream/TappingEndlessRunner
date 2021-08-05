@@ -1,4 +1,3 @@
-using GD.MinMaxSlider;
 using UnityEngine;
 
 public class PickupSpawner : MonoBehaviour
@@ -10,7 +9,7 @@ public class PickupSpawner : MonoBehaviour
     [SerializeField] private FloatVariable pickupSpawnChance;
 
     [Tooltip("Range for pickup spawn heights.")]
-    [SerializeField, MinMaxSlider(-10, 10)]
+    [SerializeField]
     private Vector2 pickupSpawnHeightRange;
 
     private void Start()

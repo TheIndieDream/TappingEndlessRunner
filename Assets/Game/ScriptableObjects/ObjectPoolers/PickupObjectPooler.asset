@@ -17,4 +17,5 @@ MonoBehaviour:
   - {fileID: 5675928916957052697, guid: 162c6f30ac3484c49b430c61fedc7b1c, type: 3}
   - {fileID: 5593049301317739618, guid: 91f0ac45e88ee9a4fbc622729690fc2b, type: 3}
   - {fileID: 6295058823872317147, guid: 10962263457a53b479058dc62654c797, type: 3}
+  - {fileID: 1272728585440462124, guid: f80e5dcaf54aa5142803aa27f89e9393, type: 3}
   initialPoolSize: 3

@@ -1,4 +1,3 @@
-using GD.MinMaxSlider;
 using System.Collections;
 using UnityEngine;
 
@@ -17,6 +16,9 @@ public class PillarSpawner : MonoBehaviour
         "pillar is spawned.")]
     [SerializeField] private Vector2Variable pillarSpawnTimeRange;
 
+    [Tooltip("Current speed of the game.")]
+    [SerializeField] private FloatVariable gameSpeed;
+
     [Tooltip("Event to signal to pickup spawner that a pickup may be " +
         "spawned.")]
     [SerializeField] private GameEvent spawnPickup;
@@ -34,18 +36,28 @@ public class PillarSpawner : MonoBehaviour
     [SerializeField] private float ceilingHeight;
 
     [Tooltip("Range for lower pillar heights.")]
-    [SerializeField, MinMaxSlider(0, 10)] 
+    [SerializeField] 
     private Vector2 lowerPillarHeightRange;
 
     [Tooltip("Range for gap heights. The low value should be greater than 1 " +
         "so that the player can fit through any gap generated. ")]
-    [SerializeField, MinMaxSlider(0, 10)] 
+    [SerializeField] 
     private Vector2 gapHeightRange;
 
     private void Start()
     {
         pillarObjectPooler.InitializePool();
         StartCoroutine(SpawnAtIntervals());
+    }
+
+    /// <summary>
+    /// Changes how often the pillars spawn to keep their distance range
+    /// proportional to the current game speed.
+    /// </summary>
+    public void UpdateSpawnTiming()
+    {
+        pillarSpawnTimeRange.Value.x = 8 / gameSpeed.Value;
+        pillarSpawnTimeRange.Value.y = 12 / gameSpeed.Value;
     }
 
     /// <summary>
