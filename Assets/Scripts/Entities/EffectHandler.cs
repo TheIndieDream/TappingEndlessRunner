@@ -26,13 +26,6 @@ public class EffectHandler : MonoBehaviour
     [Tooltip("GameEvent to signal a health point has been gained.")]
     [SerializeField] private GameEvent healed;
 
-    private void Start()
-    {
-        // TODO: Remove before build
-        gameSpeed.Value = 4.0f;
-        gameSpeedPickupIncreased.Raise();
-    }
-
     /// <summary>
     /// Protects the entity from damage using a shield object.
     /// </summary>

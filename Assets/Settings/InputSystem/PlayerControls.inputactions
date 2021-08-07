@@ -32,7 +32,7 @@
                 {
                     "name": "Mouse",
                     "type": "Button",
-                    "id": "f9fd88ca-8d4b-43c7-be56-afb4bc7b288f",
+                    "id": "5ae8570f-6fc6-4615-bd79-eb02b35d41ac",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
@@ -74,7 +74,7 @@
                 },
                 {
                     "name": "",
-                    "id": "f154c363-80e7-47ed-865a-58a82fbcd79a",
+                    "id": "50979e58-ba63-4dca-95e5-eb870ffee527",
                     "path": "<Mouse>/leftButton",
                     "interactions": "",
                     "processors": "",

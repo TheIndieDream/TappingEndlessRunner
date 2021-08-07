@@ -48,6 +48,11 @@ public class Player : MonoBehaviour
 
     private void Start()
     {
+        OnGameReset();
+    }
+
+    private void Update()
+    {
         UpdateColor();
     }
 
@@ -77,9 +82,32 @@ public class Player : MonoBehaviour
         else if (collision.CompareTag("Pickup"))
         {
             Pickup pickup = collision.gameObject.GetComponent<Pickup>();
-            pickup.Effect.Grant(effectHandler);
+            if(pickup.Effect != null)
+            {
+                pickup.Effect.Grant(effectHandler);
+            }
             pickup.OnPickUp();
         }
+    }
+
+    /// <summary>
+    /// Resets the player's position to the origin and freezes its position. 
+    /// </summary>
+    public void OnGameReset()
+    {
+        transform.position = Vector3.zero;
+        rb2d.constraints = RigidbodyConstraints2D.None;
+        rb2d.constraints = RigidbodyConstraints2D.FreezePosition;
+    }
+
+    /// <summary>
+    /// Unfreezes the Rigidbody's Y position so the player may move along that
+    /// axis.
+    /// </summary>
+    public void OnGameStart()
+    {
+        rb2d.constraints = RigidbodyConstraints2D.None;
+        rb2d.constraints = RigidbodyConstraints2D.FreezePositionX;
     }
 
     /// <summary>
@@ -111,7 +139,14 @@ public class Player : MonoBehaviour
     /// </summary>
     private void UpdateColor()
     {
-        outlineRenderer.material.SetColor("_BaseColor", outlineColor.Value);
-        outlineRenderer.material.SetColor("_EmissionColor", outlineColor.Value);
+        if(outlineRenderer.material.GetColor("_BaseColor") != outlineColor.Value)
+        {
+            outlineRenderer.material.SetColor("_BaseColor", outlineColor.Value);
+        }
+
+        if(outlineRenderer.material.GetColor("_EmissionColor") != outlineColor.Value)
+        {
+            outlineRenderer.material.SetColor("_EmissionColor", outlineColor.Value);
+        }
     }
 }

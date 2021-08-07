@@ -23,10 +23,6 @@ public class PillarSpawner : MonoBehaviour
         "spawned.")]
     [SerializeField] private GameEvent spawnPickup;
 
-    [Tooltip("How long to wait at the start of the scene before pillars " +
-        "appear")]
-    [SerializeField] private float initialSpawnDelay = 2.0f;
-
     [Tooltip("Height at which the ground starts. Ensures pillars do not " +
         "overlap with the ground.")]
     [SerializeField] private float groundStart;
@@ -47,6 +43,10 @@ public class PillarSpawner : MonoBehaviour
     private void Start()
     {
         pillarObjectPooler.InitializePool();
+    }
+
+    public void OnTutorialEnd()
+    {
         StartCoroutine(SpawnAtIntervals());
     }
 
@@ -66,9 +66,9 @@ public class PillarSpawner : MonoBehaviour
     /// </summary>
     private IEnumerator SpawnAtIntervals()
     {
-        yield return new WaitForSeconds(initialSpawnDelay);
         while (true)
         {
+            UpdateSpawnTiming();
             float pillarSpawnTime = Random.Range(pillarSpawnTimeRange.Value.x,
                 pillarSpawnTimeRange.Value.y);
             yield return new WaitForSeconds(pillarSpawnTime * 0.5f);
