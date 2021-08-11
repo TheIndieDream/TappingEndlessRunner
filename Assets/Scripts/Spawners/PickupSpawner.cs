@@ -12,9 +12,18 @@ public class PickupSpawner : MonoBehaviour
     [SerializeField]
     private Vector2 pickupSpawnHeightRange;
 
+    [Tooltip("Range for pickup spawn x offsets.")]
+    [SerializeField]
+    private Vector2 pickupSpawnXOffsetRange;
+
     private void Start()
     {
         pickupObjectPooler.InitializePool();
+    }
+
+    public void OnGameReset()
+    {
+        pickupObjectPooler.DeactivateAll();
     }
 
     /// <summary>
@@ -38,8 +47,12 @@ public class PickupSpawner : MonoBehaviour
         if(pickupObject != null)
         {
             float randomSpawnHeight = Random.Range(pickupSpawnHeightRange.x,
-            pickupSpawnHeightRange.y);
-            pickupObject.transform.position = new Vector3(transform.position.x,
+                pickupSpawnHeightRange.y);
+            float randomXOffset = Random.Range(pickupSpawnXOffsetRange.x,
+                pickupSpawnXOffsetRange.y);
+
+            pickupObject.transform.position = 
+                new Vector3(transform.position.x + randomXOffset,
                 randomSpawnHeight, transform.position.z);
 
             pickupObject.SetActive(true);

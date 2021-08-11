@@ -4,13 +4,13 @@ using UnityEngine.InputSystem;
 public class PlayerController : MonoBehaviour
 {
     [Tooltip("Stream from which the player will execute fly commands.")]
-    [SerializeField] private FloatCommandStream commandStream;
+    [SerializeField] private FlyCommandStream commandStream;
 
-    private FloatCommand flyCommand;
+    private FlyCommand flyCommand;
 
     private void Start()
     {
-        flyCommand = new FloatCommand();
+        flyCommand = new FlyCommand();
     }
 
     /// <summary>
@@ -22,12 +22,6 @@ public class PlayerController : MonoBehaviour
     {
         if (context.started)
         {
-            flyCommand.Input = true;
-            commandStream.Enqueue(flyCommand);
-        }
-        if (context.canceled)
-        {
-            flyCommand.Input = false;
             commandStream.Enqueue(flyCommand);
         }
     }

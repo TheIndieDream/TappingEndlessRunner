@@ -8,11 +8,11 @@ using UnityEngine;
 public class HealthDisplay : MonoBehaviour
 {
     [SerializeField] private GameObject[] healthImages;
-    [SerializeField] private GameEvent died;
+    [SerializeField] private GameEvent playerDied;
 
     public void OnDamaged()
     {
-        for(int i = healthImages.Length - 1; i >= 0; i--)
+        for(int i = healthImages.Length - 1; i >= 1; i--)
         {
             if (healthImages[i].activeInHierarchy)
             {
@@ -21,16 +21,25 @@ public class HealthDisplay : MonoBehaviour
             }
         }
 
-        died.Raise();
+        healthImages[0].SetActive(false);
+        playerDied.Raise();
+    }
+
+    public void OnGameReset()
+    {
+        foreach (GameObject healthImage in healthImages)
+        {
+            healthImage.SetActive(true);
+        }
     }
 
     public void OnHealed()
     {
-        for (int i = 0; i < healthImages.Length; i++)
+        foreach (GameObject healthImage in healthImages)
         {
-            if (!healthImages[i].activeInHierarchy)
+            if (!healthImage.activeInHierarchy)
             {
-                healthImages[i].SetActive(true);
+                healthImage.SetActive(true);
                 return;
             }
         }

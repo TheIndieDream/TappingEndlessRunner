@@ -3,7 +3,7 @@ using UnityEngine;
 /// <summary>
 /// Responsible for increasing the game speed ambiently as the game progresses.
 /// </summary>
-public class GameSpeedTracker : MonoBehaviour
+public class GameSpeedTracker : MonoBehaviour, IGameStateResponder
 {
     [Tooltip("Float representing the game speed.")]
     [SerializeField] private FloatVariable gameSpeed;
@@ -32,14 +32,30 @@ public class GameSpeedTracker : MonoBehaviour
         }
     }
 
-    public void OnTutorialEnd()
+    public void OnGameOver()
     {
-        accelerating = true;
+        
+    }
+
+    public void OnGameReset()
+    {
+        gameSpeed.Value = 0.0f;
     }
 
     public void OnGameStart()
     {
         gameSpeed.Value = startingGameSpeed;
+    }
+
+    public void OnPlayerDied()
+    {
+        accelerating = false;
+        gameSpeed.Value = 0.0f;
+    }
+
+    public void OnTutorialEnd()
+    {
+        accelerating = true;
     }
 
     /// <summary>

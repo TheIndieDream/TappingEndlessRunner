@@ -160,7 +160,7 @@ public class SFXHandler : MonoBehaviour
             sfxAudioSource.pitch = 1.0f;
         }
 
-        sfxAudioSource.PlayOneShot(crashClip, 1.0f);
+        sfxAudioSource.PlayOneShot(crashClip, 0.5f);
     }
 
     public void PlayHealClip()

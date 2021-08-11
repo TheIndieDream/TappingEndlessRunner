@@ -105,6 +105,17 @@ public class ObjectPooler : ScriptableObject
     }
 
     /// <summary>
+    /// Deactivates all objects in the object pool. Useful for resets.
+    /// </summary>
+    public void DeactivateAll()
+    {
+        foreach(GameObject gameObject in objectPool)
+        {
+            gameObject.SetActive(false);
+        }
+    }
+
+    /// <summary>
     /// Instatiates the game object and parents it to the objectPoolParent, if
     /// available.
     /// </summary>

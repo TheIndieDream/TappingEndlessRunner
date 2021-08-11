@@ -18,6 +18,7 @@ public class ScoreDisplay : MonoBehaviour
     private void Start()
     {
         OnBonusCollected();
+        UpdateScoreText();
     }
 
     private void Update()
@@ -33,13 +34,20 @@ public class ScoreDisplay : MonoBehaviour
         UpdateScoreText();
     }
 
+    public void OnBonusCollected()
+    {
+        bonusText.text = "Bonus: " + bonus.Value;
+    }
+
+    public void OnGameStart()
+    {
+        OnBonusCollected();
+        UpdateScoreText();
+    }
+
     private void UpdateScoreText()
     {
         scoreText.text = "Score: " + score.Value;
-    }
-
-    public void OnBonusCollected()
-    {
         bonusText.text = "Bonus: " + bonus.Value;
     }
 }

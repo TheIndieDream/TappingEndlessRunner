@@ -7,18 +7,18 @@ using UnityEngine;
 /// should be executed by some player class.
 /// </summary>
 [CreateAssetMenu]
-public class FloatCommandStream : ScriptableObject
+public class FlyCommandStream : ScriptableObject
 {
     /// <summary>
     /// Queue to store fly commands for future execution by the player.
     /// </summary>
-    private Queue<FloatCommand> stream = new Queue<FloatCommand>();
+    private Queue<FlyCommand> stream = new Queue<FlyCommand>();
 
     /// <summary>
     /// Adds a fly command to the stream for future execution by the player.
     /// </summary>
     /// <param name="command">Command to be enqueued.</param>
-    public void Enqueue(FloatCommand command)
+    public void Enqueue(FlyCommand command)
     {
         stream.Enqueue(command);
     }
@@ -27,7 +27,7 @@ public class FloatCommandStream : ScriptableObject
     /// Retrieves a fly command from the stream for execution by the player.
     /// </summary>
     /// <returns>{FlyCommand} First FlyCommand in the stream.</returns>
-    public FloatCommand Dequeue()
+    public FlyCommand Dequeue()
     {
         return stream.Dequeue();
     }

@@ -26,6 +26,17 @@ public class MultiObjectPooler : ScriptableObject
     private List<GameObject> objectPool;
 
     /// <summary>
+    /// Deactivates all objects in the pool. Useful for resets.
+    /// </summary>
+    public void DeactivateAll()
+    {
+        foreach(GameObject gameObject in objectPool)
+        {
+            gameObject.SetActive(false);
+        }
+    }
+
+    /// <summary>
     /// Returns a random, inactive gameObject from the object pool. This 
     /// function does not currently allow for pool growing.
     /// </summary>

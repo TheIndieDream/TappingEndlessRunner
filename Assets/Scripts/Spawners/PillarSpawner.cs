@@ -5,7 +5,7 @@ using UnityEngine;
 /// Handles the random and endless spawning of pillars for the player to 
 /// float through.
 /// </summary>
-public class PillarSpawner : MonoBehaviour
+public class PillarSpawner : MonoBehaviour, IGameStateResponder
 {
     [Tooltip("Object pooler for pillar objects. It is recommended that this" +
         "pooler is able to grow, to accomodate for game speed and " +
@@ -35,6 +35,10 @@ public class PillarSpawner : MonoBehaviour
     [SerializeField] 
     private Vector2 lowerPillarHeightRange;
 
+    [Tooltip("Range for pillar widths.")]
+    [SerializeField]
+    private Vector2 pillarWidthRange;
+
     [Tooltip("Range for gap heights. The low value should be greater than 1 " +
         "so that the player can fit through any gap generated. ")]
     [SerializeField] 
@@ -43,6 +47,26 @@ public class PillarSpawner : MonoBehaviour
     private void Start()
     {
         pillarObjectPooler.InitializePool();
+    }
+
+    public void OnGameStart()
+    {
+
+    }
+
+    public void OnGameReset()
+    {
+        pillarObjectPooler.DeactivateAll();
+    }
+
+    public void OnGameOver()
+    {
+        
+    }
+
+    public void OnPlayerDied()
+    {
+        StopAllCoroutines();
     }
 
     public void OnTutorialEnd()
@@ -56,8 +80,8 @@ public class PillarSpawner : MonoBehaviour
     /// </summary>
     public void UpdateSpawnTiming()
     {
-        pillarSpawnTimeRange.Value.x = 8 / gameSpeed.Value;
-        pillarSpawnTimeRange.Value.y = 12 / gameSpeed.Value;
+        pillarSpawnTimeRange.Value.x = 12 / gameSpeed.Value;
+        pillarSpawnTimeRange.Value.y = 16 / gameSpeed.Value;
     }
 
     /// <summary>
@@ -90,6 +114,8 @@ public class PillarSpawner : MonoBehaviour
         float gapHeight = Random.Range(gapHeightRange.x, gapHeightRange.y);
         float upperPillarHeight =
             ceilingHeight - lowerPillarHeight - gapHeight;
+        float randomWidth = Random.Range(pillarWidthRange.x,
+            pillarWidthRange.y);
 
         // Lower Pillar
         GameObject lowerPillarObject = pillarObjectPooler.GetObject();
@@ -100,6 +126,7 @@ public class PillarSpawner : MonoBehaviour
 
         Pillar lowerPillar = lowerPillarObject.GetComponent<Pillar>();
         lowerPillar.SetHeight(lowerPillarHeight);
+        lowerPillar.SetWidth(randomWidth);
 
         // Upper Pillar
         GameObject upperPillarObject = pillarObjectPooler.GetObject();
@@ -111,5 +138,6 @@ public class PillarSpawner : MonoBehaviour
 
         Pillar upperPillar = upperPillarObject.GetComponent<Pillar>();
         upperPillar.SetHeight(upperPillarHeight);
+        upperPillar.SetWidth(randomWidth);
     }
 }

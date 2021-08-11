@@ -7,6 +7,7 @@ TagManager:
   - Obstacle
   - Deactivator
   - Pickup
+  - Skip
   layers:
   - Default
   - TransparentFX

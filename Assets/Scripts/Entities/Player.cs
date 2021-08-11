@@ -1,34 +1,45 @@
+using System.Collections;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
-public class Player : MonoBehaviour
+public class Player : MonoBehaviour, IGameStateResponder
 {
-    /// <summary>
-    /// The current player input. When true, the player will float upward.
-    /// </summary>
-    public bool Input { get; set; }
-
     [SerializeField] private EffectHandler effectHandler;
 
-    [Header("Movement")]
+    [Header("General")]
 
-    [Tooltip("Force at which the player will float upward.")]
+    [Tooltip("Force at which the player will fly upward.")]
     [SerializeField] private float upwardForce;
 
-    [Header("Control")]
+    [Tooltip("Stream from which the player will execute fly commands.")]
+    [SerializeField] private FlyCommandStream commandStream;
 
-    [Tooltip("Stream from which the player will execute float commands.")]
-    [SerializeField] private FloatCommandStream commandStream;
+    [Tooltip("Determines whether the player is currently in the tutorial. If" +
+        "true, the player cannot take damage.")]
+    [SerializeField] private BoolVariable tutorialActive;
+
+    [Header("Variables")]
+    [SerializeField] private FloatVariable playerScoreFloat;
+    [SerializeField] private IntVariable playerBonusCount;
 
     [Header("Game Events")]
 
     [Tooltip("GameEvent to signal the player has lost a health point.")]
     [SerializeField] private GameEvent damaged;
 
-    [Tooltip("GameEvent to signal the player has lost all its health.")]
-    [SerializeField] private GameEvent died;
+    [Tooltip("GameEvent to signal the game has ended.")]
+    [SerializeField] private GameEvent gameOver;
 
-    [Header("Color")]
+    [Header("Visuals")]
+
+    [Tooltip("GameObject representing the player's graphics.")]
+    [SerializeField] private GameObject playerGraphicsObject;
+
+    [Tooltip("Particle system for the particles spawned on pickup.")]
+    [SerializeField] private ParticleSystem playerParticleSystem;
+
+    [Tooltip("Particle system renderer for the particles spawned on pickup.")]
+    [SerializeField] private ParticleSystemRenderer playerParticleSystemRenderer;
 
     [Tooltip("Color of the player's outline.")]
     [SerializeField] private ColorVariable outlineColor;
@@ -37,13 +48,16 @@ public class Player : MonoBehaviour
     [SerializeField] private MeshRenderer outlineRenderer;
 
     /// <summary>
-    /// Rigidbody2D component used for character movement.
+    /// Rigidbody2D component used for player movement.
     /// </summary>
     private Rigidbody2D rb2d;
+
+    private BoxCollider2D bc2d;
 
     private void Awake()
     {
         rb2d = GetComponent<Rigidbody2D>();
+        bc2d = GetComponent<BoxCollider2D>();
     }
 
     private void Start()
@@ -53,20 +67,20 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
-        UpdateColor();
+        UpdateOutlineColor();
+        UpdateParticleColor();
     }
 
     private void FixedUpdate()
     {
         GetCommandFromStream();
-        Float();
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (!effectHandler.Shield.IsActive)
+        if (!effectHandler.Shield.IsActive && !tutorialActive.Value)
         {
-            died.Raise();
+            damaged.Raise();
         }
     }
 
@@ -74,7 +88,7 @@ public class Player : MonoBehaviour
     {
         if (collision.CompareTag("Obstacle"))
         {
-            if (!effectHandler.Shield.IsActive)
+            if (!effectHandler.Shield.IsActive && !tutorialActive.Value)
             {
                 damaged.Raise();
             }
@@ -88,37 +102,59 @@ public class Player : MonoBehaviour
             }
             pickup.OnPickUp();
         }
+        else if (collision.CompareTag("Skip"))
+        {
+            playerScoreFloat.Value += 100;
+            playerBonusCount.Value += 1;
+        }
     }
 
     /// <summary>
-    /// Resets the player's position to the origin and freezes its position. 
+    /// Adds upwardForce to the player's Rigidbody2D.
     /// </summary>
+    public void Fly()
+    {
+        rb2d.AddForce(Vector2.up * upwardForce, ForceMode2D.Impulse);
+    }
+
+    public void OnGameOver()
+    {
+        
+    }
+
     public void OnGameReset()
     {
         transform.position = Vector3.zero;
+        bc2d.enabled = true;
         rb2d.constraints = RigidbodyConstraints2D.None;
         rb2d.constraints = RigidbodyConstraints2D.FreezePosition;
+        playerGraphicsObject.SetActive(true);
     }
 
-    /// <summary>
-    /// Unfreezes the Rigidbody's Y position so the player may move along that
-    /// axis.
-    /// </summary>
     public void OnGameStart()
     {
         rb2d.constraints = RigidbodyConstraints2D.None;
         rb2d.constraints = RigidbodyConstraints2D.FreezePositionX;
     }
 
-    /// <summary>
-    /// Adds upwardForce to the player's Rigidbody2D if there is player input.
-    /// </summary>
-    private void Float()
+    public void OnPlayerDied()
     {
-        if (Input)
-        {
-            rb2d.AddForce(Vector2.up * upwardForce);
-        }
+        bc2d.enabled = false;
+        playerGraphicsObject.SetActive(false);
+        playerParticleSystem.Play();
+        StopAllCoroutines();
+        StartCoroutine(EndGameRoutine());
+    }
+
+    public void OnTutorialEnd()
+    {
+
+    }
+
+    private IEnumerator EndGameRoutine()
+    {
+        yield return new WaitForSeconds(2.0f);
+        gameOver.Raise();
     }
 
     /// <summary>
@@ -137,7 +173,7 @@ public class Player : MonoBehaviour
     /// Changes the color of the player's outline to the value specified in
     /// outlineColor.
     /// </summary>
-    private void UpdateColor()
+    private void UpdateOutlineColor()
     {
         if(outlineRenderer.material.GetColor("_BaseColor") != outlineColor.Value)
         {
@@ -147,6 +183,27 @@ public class Player : MonoBehaviour
         if(outlineRenderer.material.GetColor("_EmissionColor") != outlineColor.Value)
         {
             outlineRenderer.material.SetColor("_EmissionColor", outlineColor.Value);
+        }
+    }
+
+    /// <summary>
+    /// Changes the color of the player's particle effect to match its assigned
+    /// color.
+    /// </summary>
+    private void UpdateParticleColor()
+    {
+        if (playerParticleSystemRenderer.material.GetColor("_BaseColor") !=
+                    outlineColor.Value)
+        {
+            playerParticleSystemRenderer.material.SetColor("_BaseColor",
+                outlineColor.Value);
+        }
+
+        if (playerParticleSystemRenderer.material.GetColor("_EmissionColor") !=
+            outlineColor.Value)
+        {
+            playerParticleSystemRenderer.material.SetColor("_EmissionColor",
+                outlineColor.Value);
         }
     }
 }
