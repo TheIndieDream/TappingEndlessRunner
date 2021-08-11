@@ -1,7 +1,7 @@
 using UnityEngine;
 
 /// <summary>
-/// Scriptable object variable to represent an integer.
+/// Scriptable object variable to represent a Color.
 /// </summary>
 [CreateAssetMenu(fileName = "new Color Variable", 
 	menuName = "Variables.../Color")]

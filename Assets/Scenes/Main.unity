@@ -13585,9 +13585,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sfxAudioSource: {fileID: 957196229}
   sfxLoopingAudioSource: {fileID: 957196228}
-  bonusClip: {fileID: 8300000, guid: 9f736cca0004a104899f56da688f8775, type: 3}
-  bonusClipAlt: {fileID: 8300000, guid: 192f7a60f169669489c676f0e1bb3f71, type: 3}
-  useBonusClipAlt: 1
+  bonusClip: {fileID: 8300000, guid: 192f7a60f169669489c676f0e1bb3f71, type: 3}
   shiftBonusClipPitch: 0
   bonusPitchShiftDelta: 0.05
   contactClip: {fileID: 8300000, guid: 81160cb31594f374aac1d1f9b23e107c, type: 3}
@@ -13597,8 +13595,6 @@ MonoBehaviour:
   shiftCrashClipPitch: 0
   crashPitchShiftDelta: 0.05
   healClip: {fileID: 8300000, guid: e138b12ecac469e448fad5fbb965fb82, type: 3}
-  healClipAlt: {fileID: 8300000, guid: 75b0dc1137c7e3c409bd6308e5e918b1, type: 3}
-  useHealClipAlt: 0
   shiftHealClipPitch: 0
   healPitchShiftDelta: 0.05
   shieldActiveClip: {fileID: 8300000, guid: a7bf3a9c9651b134c803fd3ae3be4904, type: 3}
@@ -15120,8 +15116,6 @@ MonoBehaviour:
   sfxAudioSource: {fileID: 0}
   sfxLoopingAudioSource: {fileID: 0}
   bonusClip: {fileID: 0}
-  bonusClipAlt: {fileID: 0}
-  useBonusClipAlt: 1
   shiftBonusClipPitch: 1
   bonusPitchShiftDelta: 0.05
   contactClip: {fileID: 0}
@@ -15131,8 +15125,6 @@ MonoBehaviour:
   shiftCrashClipPitch: 1
   crashPitchShiftDelta: 0.05
   healClip: {fileID: 0}
-  healClipAlt: {fileID: 0}
-  useHealClipAlt: 1
   shiftHealClipPitch: 1
   healPitchShiftDelta: 0.05
   shieldActiveClip: {fileID: 0}
@@ -19011,7 +19003,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1633776410}
         m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
-        m_MethodName: OnFloat
+        m_MethodName: OnFly
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -19027,7 +19019,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1633776410}
         m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
-        m_MethodName: OnFloat
+        m_MethodName: OnFly
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -19043,7 +19035,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1633776410}
         m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
-        m_MethodName: OnFloat
+        m_MethodName: OnFly
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -19059,7 +19051,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1633776410}
         m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
-        m_MethodName: OnFloat
+        m_MethodName: OnFly
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

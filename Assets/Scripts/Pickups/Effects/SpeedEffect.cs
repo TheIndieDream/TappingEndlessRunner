@@ -1,8 +1,7 @@
 using UnityEngine;
 
 /// <summary>
-/// Pickup effect that prevents the player from taking all damage for a 
-/// specified time.
+/// Pickup effect that changes the game speed.
 /// </summary>
 [CreateAssetMenu(fileName = "new Speed Effect",
     menuName = "Pickup Effect.../Speed")]

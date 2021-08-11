@@ -48,19 +48,16 @@ public class Pickup : MonoBehaviour
     /// </summary>
     private bool isPickedUp = false;
 
+    private void OnEnable()
+    {
+        UpdateOutlineColor();
+        UpdateParticleColor();
+        UpdateSpriteColor();
+    }
+
     private void OnDisable()
     {
         isPickedUp = false;
-    }
-
-    private void Update()
-    {
-        if (!isPickedUp)
-        {
-            UpdateOutlineColor();
-            UpdateParticleColor();
-            UpdateSpriteColor();
-        }
     }
 
     /// <summary>

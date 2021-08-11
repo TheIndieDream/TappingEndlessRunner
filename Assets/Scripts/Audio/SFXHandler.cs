@@ -21,12 +21,6 @@ public class SFXHandler : MonoBehaviour
     [Tooltip("Audio clip for bonus.")]
     [SerializeField] private AudioClip bonusClip;
 
-    [Tooltip("Alternative audio clip for bonus.")]
-    [SerializeField] private AudioClip bonusClipAlt;
-
-    [Tooltip("Should the alternative audio clip for bonus be used?")]
-    [SerializeField] bool useBonusClipAlt = true;
-
     [Tooltip("Should the pitch be randomly shifted to create variance in" +
         "the bonus noise?")]
     [SerializeField] bool shiftBonusClipPitch = true;
@@ -64,12 +58,6 @@ public class SFXHandler : MonoBehaviour
 
     [Tooltip("Audio clip for heal.")]
     [SerializeField] private AudioClip healClip;
-
-    [Tooltip("Alternative audio clip for heal.")]
-    [SerializeField] private AudioClip healClipAlt;
-
-    [Tooltip("Should the alternative audio clip for heal be used?")]
-    [SerializeField] bool useHealClipAlt = true;
 
     [Tooltip("Should the pitch be randomly shifted to create variance in" +
         "the heal noise?")]
@@ -117,6 +105,9 @@ public class SFXHandler : MonoBehaviour
     [Tooltip("How much should the pitch for speed up clip be shifted?")]
     [SerializeField] private float speedUpPitchShiftDelta = 0.05f;
 
+    /// <summary>
+    /// Plays the clip representing bonus pickup.
+    /// </summary>
     public void PlayBonusClip()
     {
         if (shiftBonusClipPitch)
@@ -129,10 +120,12 @@ public class SFXHandler : MonoBehaviour
             sfxAudioSource.pitch = 1.0f;
         }
 
-        sfxAudioSource.PlayOneShot(useBonusClipAlt ? bonusClipAlt : bonusClip, 
-            1.0f);
+        sfxAudioSource.PlayOneShot(bonusClip, 1.0f);
     }
 
+    /// <summary>
+    /// Plays the clip representing contact with pickup.
+    /// </summary>
     public void PlayContactClip()
     {
         if (shiftContactClipPitch)
@@ -148,6 +141,9 @@ public class SFXHandler : MonoBehaviour
         sfxAudioSource.PlayOneShot(contactClip, 1.0f);
     }
 
+    /// <summary>
+    /// Plays the clip representing contact with obstacle.
+    /// </summary>
     public void PlayCrashClip()
     {
         if (shiftCrashClipPitch)
@@ -160,9 +156,12 @@ public class SFXHandler : MonoBehaviour
             sfxAudioSource.pitch = 1.0f;
         }
 
-        sfxAudioSource.PlayOneShot(crashClip, 0.5f);
+        sfxAudioSource.PlayOneShot(crashClip, 0.25f);
     }
 
+    /// <summary>
+    /// Plays the clip representing contact with health pickup.
+    /// </summary>
     public void PlayHealClip()
     {
         if (shiftHealClipPitch)
@@ -175,10 +174,12 @@ public class SFXHandler : MonoBehaviour
             sfxAudioSource.pitch = 1.0f;
         }
 
-        sfxAudioSource.PlayOneShot(useHealClipAlt ? healClipAlt : healClip,
-            1.0f);
+        sfxAudioSource.PlayOneShot(healClip, 1.0f);
     }
 
+    /// <summary>
+    /// Plays the clip representing an active shield.
+    /// </summary>
     public void PlayShieldActiveClip()
     {
         if (shiftShieldActiveClipPitch)
@@ -200,6 +201,9 @@ public class SFXHandler : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Plays the clip representing contact with slow down pickup.
+    /// </summary>
     public void PlaySlowDownClip()
     {
         if (shiftSlowDownClipPitch)
@@ -215,6 +219,9 @@ public class SFXHandler : MonoBehaviour
         sfxAudioSource.PlayOneShot(slowDownClip, 1.0f);
     }
 
+    /// <summary>
+    /// Plays the clip representing contact with speed up pickup.
+    /// </summary>
     public void PlaySpeedUpClip()
     {
         if (shiftSpeedUpClipPitch)
@@ -230,12 +237,20 @@ public class SFXHandler : MonoBehaviour
         sfxAudioSource.PlayOneShot(speedUpClip, 1.0f);
     }
 
+    /// <summary>
+    /// Begins the routine to shut down the shield by slowly fading out its 
+    /// volume.
+    /// </summary>
     public void StopShieldActiveClip()
     {
         StopAllCoroutines();
         StartCoroutine(StopShieldRoutine());
     }
 
+    /// <summary>
+    /// Slowly fades out the shield active noise volume as the shield powerup
+    /// ends.
+    /// </summary>
     private IEnumerator StopShieldRoutine()
     {
         float elapsedTime = 0.0f;

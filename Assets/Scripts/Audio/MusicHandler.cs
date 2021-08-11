@@ -1,26 +1,42 @@
 using System.Collections;
 using UnityEngine;
 
+/// <summary>
+/// Ensures that each soundtrack is played in the appropriate scene.
+/// </summary>
 public class MusicHandler : MonoBehaviour
 {
+    [Tooltip("Audio source through which music will be played. Should loop, " +
+        "and should play on awake.")]
     [SerializeField] private AudioSource musicAudio;
+
+    [Tooltip("The length of a transition between two scenes. The music will" +
+        "slowly fade out during the first half of the transition, then " +
+        "slowly fade in during the second half of the transition.")]
     [SerializeField] private FloatVariable transitionTime;
+
+    [Tooltip("Audio Clip that contains the title screen music.")]
     [SerializeField] private AudioClip titleScreenMusic;
+
+    [Tooltip("Audio Clip that contains the gameplay music.")]
     [SerializeField] private AudioClip gameScreenMusic;
 
+    /// <summary>
+    /// Transitions the music handler to the game screen.
+    /// </summary>
     public void ToGame()
     {
         StopAllCoroutines();
-        StartCoroutine(Transition(gameScreenMusic));
+        StartCoroutine(MusicTransitionRoutine(gameScreenMusic));
     }
 
-    public void ToTitle()
-    {
-        StopAllCoroutines();
-        StartCoroutine(Transition(titleScreenMusic));
-    }
-
-    private IEnumerator Transition(AudioClip transitionToClip)
+    /// <summary>
+    /// Slowly fades the music out during the first half of transitionTime,
+    /// then slowly fades the music in during the second half of transitionTime.
+    /// </summary>
+    /// <param name="transitionToClip">Destination clip of the transition.
+    /// </param>
+    private IEnumerator MusicTransitionRoutine(AudioClip transitionToClip)
     {
         float elapsedTime = 0.0f;
         float startVolume = musicAudio.volume;

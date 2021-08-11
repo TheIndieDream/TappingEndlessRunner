@@ -3,13 +3,14 @@ using UnityEngine;
 
 /// <summary>
 /// Handles the random and endless spawning of pillars for the player to 
-/// float through.
+/// fly through.
 /// </summary>
 public class PillarSpawner : MonoBehaviour, IGameStateResponder
 {
+    [Header("General")]
+
     [Tooltip("Object pooler for pillar objects. It is recommended that this" +
-        "pooler is able to grow, to accomodate for game speed and " +
-        "difficulty changes.")]
+        "pooler is able to grow, to accomodate for game speed changes.")]
     [SerializeField] private ObjectPooler pillarObjectPooler;
 
     [Tooltip("A random spawn time is chosen from this range each time a" +
@@ -22,6 +23,8 @@ public class PillarSpawner : MonoBehaviour, IGameStateResponder
     [Tooltip("Event to signal to pickup spawner that a pickup may be " +
         "spawned.")]
     [SerializeField] private GameEvent spawnPickup;
+
+    [Header("Pillar Spawn Parameters")]
 
     [Tooltip("Height at which the ground starts. Ensures pillars do not " +
         "overlap with the ground.")]

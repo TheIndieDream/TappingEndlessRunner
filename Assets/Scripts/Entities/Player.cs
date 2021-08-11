@@ -1,12 +1,18 @@
 using System.Collections;
 using UnityEngine;
 
+/// <summary>
+/// Represents the player. Responds to player input by flying upward. Collides
+/// with obstacles and pickups. For this iteration, it is just a square!
+/// </summary>
 [RequireComponent(typeof(Rigidbody2D))]
 public class Player : MonoBehaviour, IGameStateResponder
 {
-    [SerializeField] private EffectHandler effectHandler;
-
     [Header("General")]
+
+    [Tooltip("Reference to the effect handler class that gives the player" +
+        "powerups when pickups are collected.")]
+    [SerializeField] private EffectHandler effectHandler;
 
     [Tooltip("Force at which the player will fly upward.")]
     [SerializeField] private float upwardForce;
@@ -19,7 +25,11 @@ public class Player : MonoBehaviour, IGameStateResponder
     [SerializeField] private BoolVariable tutorialActive;
 
     [Header("Variables")]
+
+    [Tooltip("Float representing the player's current score.")]
     [SerializeField] private FloatVariable playerScoreFloat;
+
+    [Tooltip("Int representing how many bonuses the player has collected.")]
     [SerializeField] private IntVariable playerBonusCount;
 
     [Header("Game Events")]
@@ -52,6 +62,9 @@ public class Player : MonoBehaviour, IGameStateResponder
     /// </summary>
     private Rigidbody2D rb2d;
 
+    /// <summary>
+    /// BoxCollider2D component used to detect player collision.
+    /// </summary>
     private BoxCollider2D bc2d;
 
     private void Awake()
@@ -63,12 +76,8 @@ public class Player : MonoBehaviour, IGameStateResponder
     private void Start()
     {
         OnGameReset();
-    }
-
-    private void Update()
-    {
-        UpdateOutlineColor();
-        UpdateParticleColor();
+        SetOutlineColor();
+        SetParticleColor();
     }
 
     private void FixedUpdate()
@@ -173,14 +182,16 @@ public class Player : MonoBehaviour, IGameStateResponder
     /// Changes the color of the player's outline to the value specified in
     /// outlineColor.
     /// </summary>
-    private void UpdateOutlineColor()
+    private void SetOutlineColor()
     {
-        if(outlineRenderer.material.GetColor("_BaseColor") != outlineColor.Value)
+        if(outlineRenderer.material.GetColor("_BaseColor") != 
+            outlineColor.Value)
         {
             outlineRenderer.material.SetColor("_BaseColor", outlineColor.Value);
         }
 
-        if(outlineRenderer.material.GetColor("_EmissionColor") != outlineColor.Value)
+        if(outlineRenderer.material.GetColor("_EmissionColor") != 
+            outlineColor.Value)
         {
             outlineRenderer.material.SetColor("_EmissionColor", outlineColor.Value);
         }
@@ -190,7 +201,7 @@ public class Player : MonoBehaviour, IGameStateResponder
     /// Changes the color of the player's particle effect to match its assigned
     /// color.
     /// </summary>
-    private void UpdateParticleColor()
+    private void SetParticleColor()
     {
         if (playerParticleSystemRenderer.material.GetColor("_BaseColor") !=
                     outlineColor.Value)

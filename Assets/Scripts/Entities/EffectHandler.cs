@@ -1,5 +1,9 @@
 using UnityEngine;
 
+/// <summary>
+/// Class responsible for bestowing powerup effects to the player when it 
+/// collides with pickups.
+/// </summary>
 public class EffectHandler : MonoBehaviour
 {
     [Tooltip("This entity's shield object")]

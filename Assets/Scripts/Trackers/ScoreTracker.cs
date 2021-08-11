@@ -20,8 +20,15 @@ public class ScoreTracker : MonoBehaviour, IGameStateResponder
     [Tooltip("Current game speed.")]
     [SerializeField] private FloatVariable gameSpeed;
 
+    [Tooltip("Float representing the current score of the player. This is" +
+        "an intermediate variable in use because the score is displayed as" +
+        "an integer but calculated as a float, because the distance the " +
+        "player travels is continuous.")]
     [SerializeField] private FloatVariable scoreFloat;
 
+    /// <summary>
+    /// When true, score ticks up based on distance traveled.
+    /// </summary>
     private bool scoring = false;
 
     private void Awake()

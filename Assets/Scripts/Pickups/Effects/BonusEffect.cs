@@ -1,7 +1,7 @@
 using UnityEngine;
 
 /// <summary>
-/// Pickup effect that restores a set number of health points to the player.
+/// Pickup effect that raises the player's bonus score.
 /// </summary>
 [CreateAssetMenu(fileName = "new Bonus Effect",
     menuName = "Pickup Effect.../Bonus")]

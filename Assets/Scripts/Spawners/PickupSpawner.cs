@@ -1,5 +1,12 @@
 using UnityEngine;
 
+/// <summary>
+/// Class to spawn pickups in response to a spawnPickup event. Once the event
+/// is recieved, this class will spawn a pickup after a random roll to see
+/// whether a pickup should be spawned based on pickupSpawnChance. If 
+/// a pickup is spawned, it is then offset in the x and y directions to add
+/// variety to pickup placement.
+/// </summary>
 public class PickupSpawner : MonoBehaviour
 {
     [Tooltip("Object pooler for the pickup object to be spawned.")]
@@ -21,6 +28,9 @@ public class PickupSpawner : MonoBehaviour
         pickupObjectPooler.InitializePool();
     }
 
+    /// <summary>
+    /// Deactivates all pooled objects when the game is reset.
+    /// </summary>
     public void OnGameReset()
     {
         pickupObjectPooler.DeactivateAll();

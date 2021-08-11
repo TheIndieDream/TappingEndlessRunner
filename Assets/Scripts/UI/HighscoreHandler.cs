@@ -7,17 +7,47 @@ using UnityEngine;
 using UnityEngine.Networking;
 using TMPro;
 
+/// <summary>
+/// Uses a .php file hosted on BrandonLymanGameDev.com to query and write to
+/// a high score database hosted there. Special thanks to Generic Toast at 
+/// https://blog.generistgames.com/creating-a-simple-unity-online-leaderboard/
+/// who gives an in-depth, step-by-step tutorial on how to set this up.
+/// </summary>
 public class HighscoreHandler : MonoBehaviour
 {
-    private const string highscoreURL = "https://brandonlymangamedev.com/neonlineshighscore.php";
+    /// <summary>
+    /// URL at which the .php file interfacing with the SQL database is stored.
+    /// </summary>
+    private const string highscoreURL = 
+        "https://brandonlymangamedev.com/neonlineshighscore.php";
 
+    [Tooltip("Signals that the high scores have been loaded from the host " +
+        "site.")]
     [SerializeField] private GameEvent highScoresLoaded;
+
+    [Tooltip("String representing the player's name to be posted alongside" +
+        "the high score should they achieve leaderboard status.")]
     [SerializeField] private StringVariable currentPlayerName;
+
+    [Tooltip("Current score of the player to be posted alongside their name" +
+        "should they achieve leaderboard status.")]
     [SerializeField] private IntVariable currentPlayerScore;
+
+    [Tooltip("Int representing the minimum score necessary to be on the " +
+        "leaderboard.")]
     [SerializeField] private IntVariable minHighScore;
+
+    [Tooltip("Array of TextMeshPro objects that will display the leaderboard" +
+        "names.")]
     [SerializeField] private TextMeshProUGUI[] namesTextUI;
+
+    [Tooltip("Array of TextMeshPro objects that will display the leaderboard" +
+        "scores.")]
     [SerializeField] private TextMeshProUGUI[] scoresTextUI;
 
+    /// <summary>
+    /// List of score objects derived from the online leaderboard.
+    /// </summary>
     private List<Score> scores;
 
     private IEnumerator Start()
@@ -27,17 +57,27 @@ public class HighscoreHandler : MonoBehaviour
         minHighScore.Value = scores[minScoreIndex].score;
     }
 
+    /// <summary>
+    /// Starts the LoadHighScores Routine.
+    /// </summary>
     public void LoadHighScores()
     {
         StartCoroutine(LoadHighScoresRoutine());
     }
 
+    /// <summary>
+    /// Starts the PostScore Routine with the current player's name and score.
+    /// </summary>
     public void PostHighScore()
     {
         StartCoroutine(PostScoreRoutine(currentPlayerName.Value, 
             currentPlayerScore.Value));
     }
 
+    /// <summary>
+    /// Routine to load the top 5 (or fewer) high scores from the online 
+    /// leaderboard.
+    /// </summary>
     private IEnumerator LoadHighScoresRoutine()
     {
         yield return RetrieveScoresRoutine();
@@ -52,6 +92,11 @@ public class HighscoreHandler : MonoBehaviour
         highScoresLoaded.Raise();
     }
 
+    /// <summary>
+    /// Routine to post a score to the online leaderboard.
+    /// </summary>
+    /// <param name="name">Name to post to the leaderboard.</param>
+    /// <param name="score">Score to post to the leaderboard.</param>
     private IEnumerator PostScoreRoutine(string name, int score)
     {
         // Remove white space from name.
@@ -88,6 +133,9 @@ public class HighscoreHandler : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Routine to gather all scores from the leaderboard.
+    /// </summary>
     private IEnumerator RetrieveScoresRoutine()
     {
         scores = new List<Score>();

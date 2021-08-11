@@ -17,6 +17,10 @@ public class GameSpeedTracker : MonoBehaviour, IGameStateResponder
     [Tooltip("Game will speed up every ____ seconds.")]
     [SerializeField] private float speedUpInterval;
 
+    /// <summary>
+    /// When true, the game will speed up by speedDelta event speedUpInterval
+    /// seconds.
+    /// </summary>
     private bool accelerating = false;
 
     private void Awake()
