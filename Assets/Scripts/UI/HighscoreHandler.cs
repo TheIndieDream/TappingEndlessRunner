@@ -54,6 +54,11 @@ public class HighscoreHandler : MonoBehaviour
     {
         yield return RetrieveScoresRoutine();
         int minScoreIndex = Mathf.Min(scores.Count - 1, 4);
+        if(minScoreIndex < 0 || scores.Count < 5)
+        {
+            minHighScore.Value = 0;
+            yield break;
+        }
         minHighScore.Value = scores[minScoreIndex].score;
     }
 

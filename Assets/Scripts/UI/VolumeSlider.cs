@@ -20,7 +20,14 @@ public class VolumeSlider : MonoBehaviour
 
     private void Start()
     {
-        slider.value = PlayerPrefs.GetFloat(keyForVolumeSave,1.0f);
+        if(keyForVolumeSave == "musicVol")
+        {
+            slider.value = PlayerPrefs.GetFloat(keyForVolumeSave, 1.0f);
+        }
+        else
+        {
+            slider.value = PlayerPrefs.GetFloat(keyForVolumeSave, 0.75f);
+        }
     }
 
     /// <summary>

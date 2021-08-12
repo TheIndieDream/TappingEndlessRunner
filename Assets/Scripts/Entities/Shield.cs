@@ -36,7 +36,7 @@ public class Shield : MonoBehaviour
     [Tooltip("GameEvent to signal a shield has been deactivated.")]
     [SerializeField] private GameEvent shieldDeactivated;
 
-    public void Start()
+    private void Start()
     {
         spriteRenderer.color = Color.clear;
     }
@@ -54,6 +54,16 @@ public class Shield : MonoBehaviour
 
         StopAllCoroutines();
         StartCoroutine(DeactivateRoutine(time));
+    }
+
+    /// <summary>
+    /// Deactivates the shield instantly when the game resets.
+    /// </summary>
+    public void OnGameReset()
+    {
+        StopAllCoroutines();
+        IsActive = false;
+        spriteRenderer.color = Color.clear;
     }
 
     /// <summary>

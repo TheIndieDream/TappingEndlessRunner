@@ -59,6 +59,7 @@ public class PillarSpawner : MonoBehaviour, IGameStateResponder
 
     public void OnGameReset()
     {
+        StopAllCoroutines();
         pillarObjectPooler.DeactivateAll();
     }
 

@@ -138,6 +138,7 @@ public class Player : MonoBehaviour, IGameStateResponder
         rb2d.constraints = RigidbodyConstraints2D.None;
         rb2d.constraints = RigidbodyConstraints2D.FreezePosition;
         playerGraphicsObject.SetActive(true);
+        effectHandler.Shield.IsActive = false;
     }
 
     public void OnGameStart()
@@ -153,6 +154,15 @@ public class Player : MonoBehaviour, IGameStateResponder
         playerParticleSystem.Play();
         StopAllCoroutines();
         StartCoroutine(EndGameRoutine());
+    }
+
+    /// <summary>
+    /// Activates the player's shield to ensure it cannot die during a game
+    /// reset.
+    /// </summary>
+    public void OnResetButtonPressed()
+    {
+        effectHandler.Shield.IsActive = true;
     }
 
     public void OnTutorialEnd()
